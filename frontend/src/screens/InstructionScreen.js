@@ -1,11 +1,21 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import recipes from "../recipes";
+import axios from "axios";
+import styled from "styled-components";
 
 const InstructionScreen = () => {
+  const [recipe, setRecipe] = useState({});
+
   const match = useParams();
-  const recipe = recipes.find((r) => r._id === match.id);
+
+  useEffect(() => {
+    const fetchRecipe = async () => {
+      const { data } = await axios.get(`/api/recipes/${match.id}`);
+      setRecipe(data);
+    };
+
+    fetchRecipe();
+  });
 
   return (
     <>

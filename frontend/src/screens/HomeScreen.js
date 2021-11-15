@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import styled from "styled-components";
 import Recipe from "../components/Recipe";
-import recipes from "../recipes";
 
 const HomeScreen = () => {
+  const [recipes, setRecipes] = useState([]);
+
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      const { data } = await axios.get("/api/recipes");
+      setRecipes(data);
+    };
+
+    fetchRecipes();
+  }, []);
+
   return (
     <>
       <RecipeList>
