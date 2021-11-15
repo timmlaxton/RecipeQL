@@ -1,9 +1,15 @@
 import "./App.css";
+import { Route } from "react-router-dom";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import HomeScreen from "./screens/HomeScreen";
 
 const App = () => {
   return (
     <div className="App">
-      <h1>pop</h1>
+      <Header />
+      <Route path="/" component={HomeScreen} />
+      <Footer />
     </div>
   );
 };
