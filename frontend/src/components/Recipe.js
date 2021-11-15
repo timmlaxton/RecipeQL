@@ -1,13 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Recipe = ({ recipe }) => {
   return (
     <StyledCard>
-      <a href={`/recipe/${recipe._id}`}>
+      <Link to={`/recipe/${recipe._id}`}>
         <img src={recipe.image} alt="pop" />
         <h3>{recipe.name}</h3>
-      </a>
+      </Link>
     </StyledCard>
   );
 };
@@ -24,6 +25,8 @@ const StyledCard = styled.div`
   overflow: hidden;
   color: #fff;
   text-decoration: none !important;
+  justify-content: center;
+  align-items: center;
 
   a {
     text-decoration: none !important;

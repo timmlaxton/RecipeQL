@@ -1,16 +1,20 @@
 import "./App.css";
-import { Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import HomeScreen from "./screens/HomeScreen";
+import InstructionScreen from "./screens/InstructionScreen";
 
 const App = () => {
   return (
-    <div className="App">
+    <Router>
       <Header />
-      <Route path="/" component={HomeScreen} />
+      <Routes>
+        <Route path="/" element={<HomeScreen />} exact />
+        <Route path="/recipe/:id" element={<InstructionScreen />} exact />
+      </Routes>
       <Footer />
-    </div>
+    </Router>
   );
 };
 

@@ -106,5 +106,4 @@ const recipes = [
     ingredients: "chickpeas, ",
   },
 ];
-
-export default recipes;
+module.exports = recipes;
