@@ -1,7 +1,7 @@
 import graphql from "graphql";
 import _ from "lodash";
 
-const { GraphQLObjectType, GraphQLString, GraphQLSchema } = graphql;
+const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID } = graphql;
 
 const recipes = [
   {
@@ -37,7 +37,7 @@ const recipes = [
 const RecipeType = new GraphQLObjectType({
   name: "Recipe",
   fields: () => ({
-    id: { type: GraphQLString },
+    id: { type: GraphQLID },
     name: { type: GraphQLString },
     category: { type: GraphQLString },
     ingredients: { type: GraphQLString },
@@ -50,7 +50,7 @@ const RootQuery = new GraphQLObjectType({
   fields: () => ({
     recipe: {
       type: RecipeType,
-      args: { id: { type: GraphQLString } },
+      args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         return _.find(recipes, { id: args.id });
       },
