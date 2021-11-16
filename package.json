@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "recipe app",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "start": "node backend/server",
     "server": "nodemon backend/server",
@@ -21,7 +22,9 @@
   "homepage": "https://github.com/timmlaxton/RecipeQL#readme",
   "dependencies": {
     "dotenv": "^10.0.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "express-graphql": "^0.12.0",
+    "graphql": "^15.7.2"
   },
   "devDependencies": {
     "concurrently": "^6.4.0",

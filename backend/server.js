@@ -1,6 +1,6 @@
-const express = require("express");
-const dotenv = require("dotenv");
-const recipes = require("./data/recipes");
+import express from "express";
+import dotenv from "dotenv";
+import recipes from "./data/recipes.js";
 
 dotenv.config();
 
