@@ -1,11 +1,14 @@
 import express from "express";
 import dotenv from "dotenv";
+import connectDB from "./config/db.js";
 import { graphqlHTTP } from "express-graphql";
 import schema from "./schema/schema.js";
 
 import recipes from "./data/recipes.js";
 
 dotenv.config();
+
+connectDB();
 
 const app = express();
 
@@ -30,6 +33,6 @@ app.use(
 //   res.json(recipe);
 // });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.POP || 5000;
 
 app.listen(PORT, console.log(`Server is running on port ${PORT}`));
