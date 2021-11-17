@@ -15,13 +15,16 @@ const RecipeType = new GraphQLObjectType({
   name: "Recipe",
   fields: () => ({
     id: { type: GraphQLID },
+    image: { type: GraphQLString },
     name: { type: GraphQLString },
     category: { type: GraphQLString },
     ingredients: { type: GraphQLString },
     instructions: { type: GraphQLString },
     main: {
       type: MainType,
-      resolve(parent, type) {},
+      resolve(parent, type) {
+        return Main.findById(parent.mainId);
+      },
     },
   }),
 });
@@ -30,10 +33,12 @@ const MainType = new GraphQLObjectType({
   name: "Main",
   fields: () => ({
     id: { type: GraphQLID },
-    type: { type: GraphQLString },
-    recipe: {
+    name: { type: GraphQLString },
+    recipes: {
       type: new GraphQLList(RecipeType),
-      resolve(parent, args) {},
+      resolve(parent, args) {
+        return Recipe.find({ mainId: parent.id });
+      },
     },
   }),
 });
@@ -44,32 +49,28 @@ const RootQuery = new GraphQLObjectType({
     recipe: {
       type: RecipeType,
       args: { id: { type: GraphQLID } },
-      resolve(parent, args) {},
+      resolve(parent, args) {
+        return Recipe.findById(args.id);
+      },
     },
     main: {
       type: MainType,
       args: { id: { type: GraphQLID } },
-      resolve(parent, args) {},
-    },
-    recipe: {
-      type: new GraphQLList(RecipeType),
       resolve(parent, args) {
-        return recipes;
-      },
-    },
-    main: {
-      type: new GraphQLList(MainType),
-      resolve(parent, args) {
-        return mains;
+        return Main.findById(args.id);
       },
     },
     recipes: {
       type: new GraphQLList(RecipeType),
-      resolve(parent, args) {},
+      resolve(parent, args) {
+        return Recipe.find({});
+      },
     },
     mains: {
       type: new GraphQLList(MainType),
-      resolve(parent, args) {},
+      resolve(parent, args) {
+        return Main.find({});
+      },
     },
   }),
 });
@@ -81,9 +82,34 @@ const Mutation = new GraphQLObjectType({
       type: RecipeType,
       args: {
         name: { type: GraphQLString },
+        image: { type: GraphQLString },
         category: { type: GraphQLString },
         ingredients: { type: GraphQLString },
         instructions: { type: GraphQLString },
+        mainId: { type: GraphQLID },
+      },
+      resolve(parent, args) {
+        let recipe = new Recipe({
+          name: args.name,
+          image: args.image,
+          category: args.category,
+          ingredients: args.ingredients,
+          instructions: args.instructions,
+          mainId: args.mainId,
+        });
+        return recipe.save();
+      },
+    },
+    addMain: {
+      type: MainType,
+      args: {
+        name: { type: GraphQLString },
+      },
+      resolve(parent, args) {
+        let main = new Main({
+          name: args.name,
+        });
+        return main.save();
       },
     },
   },
@@ -91,4 +117,5 @@ const Mutation = new GraphQLObjectType({
 
 export default new GraphQLSchema({
   query: RootQuery,
+  mutation: Mutation,
 });

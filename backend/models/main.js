@@ -1,7 +1,7 @@
-const mongoose = "mongoose";
+import mongoose from "mongoose";
 
 const mainSchema = mongoose.Schema({
-  type: String,
+  name: String,
 });
 
 const Main = mongoose.model("Main", mainSchema);
