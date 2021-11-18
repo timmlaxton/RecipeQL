@@ -12,9 +12,11 @@ const HomeScreen = () => {
 
   useEffect(() => {
     if (data) {
+      console.log(data);
       setRecipes(data.recipes);
     }
   }, [data]);
+
   return (
     <>
       <RecipeList>
