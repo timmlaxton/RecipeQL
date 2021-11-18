@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/timmlaxton/RecipeQL#readme",
   "dependencies": {
+    "@apollo/client": "^3.4.17",
+    "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-graphql": "^0.12.0",

@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { useQuery, gql } from "@apollo/client";
+import { LOAD_RECIPES } from "../GraphQL/Queries";
 import styled from "styled-components";
 
 const InstructionScreen = () => {
   const [recipe, setRecipe] = useState({});
 
-  const match = useParams();
+  const { error, loading, data } = useQuery(LOAD_RECIPES);
 
   useEffect(() => {
-    const fetchRecipe = async () => {
-      const { data } = await axios.get(`/api/recipes/${match.id}`);
-      setRecipe(data);
-    };
-
-    fetchRecipe();
-  });
+    if (data) {
+      setRecipe(data.recipes);
+    }
+  }, [data]);
 
   return (
     <>

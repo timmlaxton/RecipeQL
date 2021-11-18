@@ -6,7 +6,7 @@ const Recipe = ({ recipe }) => {
   return (
     <StyledCard>
       <Link to={`/recipe/${recipe._id}`}>
-        <img src={recipe.image} alt="pop" />
+        <img src="../images/chicken-lemon.jpeg" alt="pop" />
         <h3>{recipe.name}</h3>
       </Link>
     </StyledCard>

@@ -9,6 +9,7 @@ const {
   GraphQLSchema,
   GraphQLID,
   GraphQLList,
+  GraphQLNonNull,
 } = graphql;
 
 const RecipeType = new GraphQLObjectType({
@@ -81,11 +82,11 @@ const Mutation = new GraphQLObjectType({
     addRecipe: {
       type: RecipeType,
       args: {
-        name: { type: GraphQLString },
-        image: { type: GraphQLString },
-        category: { type: GraphQLString },
-        ingredients: { type: GraphQLString },
-        instructions: { type: GraphQLString },
+        name: { type: new GraphQLNonNull(GraphQLString) },
+        image: { type: new GraphQLNonNull(GraphQLString) },
+        category: { type: new GraphQLNonNull(GraphQLString) },
+        ingredients: { type: new GraphQLNonNull(GraphQLString) },
+        instructions: { type: new GraphQLNonNull(GraphQLString) },
         mainId: { type: GraphQLID },
       },
       resolve(parent, args) {
@@ -103,7 +104,7 @@ const Mutation = new GraphQLObjectType({
     addMain: {
       type: MainType,
       args: {
-        name: { type: GraphQLString },
+        name: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve(parent, args) {
         let main = new Main({
